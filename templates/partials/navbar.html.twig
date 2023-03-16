@@ -1,0 +1,19 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark p-0">
+  <div class="container-fluid px-2">
+    <div class="d-flex w-25 justify-content-between">
+        <a class="navbar-brand" href="{{ path('products.categories', {query: {id: null}}) }}"><i class="bi bi-laptop"></i><span class="ml-2">Products</span>
+        <a class="navbar-brand" href="{{ path('cart.view')}}"><i class="bi bi-cart"></i><span class="ml-2">Cart</span>
+    </div>
+
+    <div class="d-flex">
+        <ul class="navbar-nav me-5">
+          <li class="nav-item dropdown me-3">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="bi bi-person-circle"></i> {{ (app.user is same as(null)) ?  "Connect" : app.user.firstName}}</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="{{ path('user.logout')}}"><i class="bi bi-door-open-fill"></i> Logout </a>
+            </div>
+          </li>
+        </ul>
+      </div>
+  </div>
+</nav>

@@ -1,0 +1,125 @@
+.layout {
+    background-image: linear-gradient(90deg,#5f2c82,#49a09d) !important;
+}
+
+nav {
+  position: sticky !important;
+  top: 0;
+  z-index: 99999;
+}
+
+.categories-container {
+  height: 30rem;
+}
+
+.category-box {
+   cursor: pointer;
+   height: 23rem;
+   transition: transform .3s; /* Animation */
+}
+
+.category-box:hover {
+  transform: scale(1.1); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+
+.product-box {
+   cursor: pointer;
+   height: 30rem;
+   transition: transform .3s; /* Animation */
+}
+
+.product-box:hover {
+  transform: scale(1.2) translateX(10%);
+}
+
+.category-box img {
+    max-height: 80%;
+    object-fit: contain;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+
+.cart-qty{
+  width: 20rem;
+  margin: 0 auto;
+  text-align: center;
+  color: #000;
+}
+
+.value-button {
+  display: inline-block;
+  border: 1px solid #ddd;
+  margin: 0px;
+  width: 40px;
+  height: 20px;
+  text-align: center;
+  vertical-align: middle;
+  padding: 11px 0;
+  background: #eee;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.value-button:hover {
+  cursor: pointer;
+}
+
+.cart-qty div#decrease {
+  margin-right: -4px;
+  border-radius: 8px 0 0 8px;
+  height: 2.5rem;
+}
+
+.cart-qty div#increase {
+  margin-left: -4px;
+  border-radius: 0 8px 8px 0;
+  height: 2.5rem;
+}
+
+.cart-qty div#input-wrap {
+  margin: 0px;
+  padding: 0px;
+}
+
+input#number {
+  text-align: center;
+  border: none;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  margin: 0px;
+  width: 40px;
+  height: 40px;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.cart-product-image {
+  max-height: 15rem;
+}

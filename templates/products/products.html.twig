@@ -1,0 +1,58 @@
+<div>
+    <h4 class="text-center">{{current.name }}</h4>
+</div>
+
+<div class="card-body ">
+    {% for product in products %}
+        <div class="product-box mx-3 cursor-pointer my-5" 
+            id={{product.id}}
+        /> 
+            <div class = "row">
+                <div class="col-6 card h-100  p-0" style="width: 18rem;">
+                    <img src={{ asset("assets/media/products/" ~ product.media)}}
+                    class="card-img-top" alt={{product.media}}>
+                    <div class="card-body">
+                        <p class="card-text text-wrap">{{product.name}}</p>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class = 'd-flex flex-column justify-content-center h-100'>
+                        <div>
+                            <div class="mb-3">
+                               {{product.description}}
+                            </div>
+
+                            <div class ="d-flex justify-content-between">
+                                <div>
+                                    <h4 class = "d-inline text-danger font-weight-bold">
+                                        {{product.price}} RON
+                                    </h4>
+                                    <div class="d-inline">
+                                        <h5 class = "ml-2">
+                                            Stock: {{product.qty}} 
+                                        </h5>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p>
+                                        {{product.code}}
+                                    </p>
+                                </div>
+                            </div>  
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+<script>
+    document.querySelectorAll('div.product-box').forEach(element => {
+        console.log(element.id);
+        element.addEventListener('click', () =>  handleClickProduct(element.id))
+    });
+
+    function handleClickProduct(id) {
+        location.href = "/products/" + id;
+    }
+</script>

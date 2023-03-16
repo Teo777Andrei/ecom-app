@@ -1,0 +1,105 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %} Product {% endblock %}
+{% block head %}
+    
+{% endblock %}
+{% block body %}
+{% include "partials/navbar.html.twig" %}
+
+<div class="container mt-4">
+        {% if cartError == 'OK-ADD-CART' %}
+            <div class="alert alert-danger text-center" role="alert">
+                Item inserted successfully !
+            </div>    
+        {% elseif cartError != 0 %}
+            <div class="alert text-center" role="alert">
+                {{cartError}}
+            </div>
+        {% endif %}
+    <h5 class="text-center my-5">{{product.name}}</h5>
+    <div class="row mt-4">
+        <div class = 'col-4'>
+            <img class="img-fluid" src={{ asset("assets/media/products/" ~ product.media)}}>
+        </div>
+        <div class="col-8">
+            <div class="row flex-column justify-content-between h-100">
+                <div class = "col-12">
+                        <span>{{product.description}}</span>
+                </div>
+                <div class = "col-12">
+                        <div class ="d-flex justify-content-between">
+                                <div>
+                                    <h4 class = "d-inline text-danger font-weight-bold">
+                                        {{product.price}} RON
+                                    </h4>
+                                    <div class="d-inline">
+                                        <h5 class = "ml-2">
+                                            Stock: {{product.qty}} 
+                                        </h5>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p>
+                                        {{product.code}}
+                                    </p>
+                                </div>
+                        </div>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <div class="d-flex">
+                        <button type="submit" product-id={{product.id}} class="btn btn-danger" id='cart.add'> Add to cart </button>
+                        <div class="cart-qty ms-">
+                            <div class="value-button" id="decrease" onclick="decreaseValue()" value="Decrease Value">-</div>
+                            <input type="number" id="number" value="0" />
+                            <div class="value-button" id="increase" onclick="increaseValue()" value="Increase Value">+</div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    
+    </div>
+    
+</div>
+<script>
+ document.getElementById('cart.add').onclick = function(e) {
+    var response = fetch("http://localhost:8000/add-product-cart", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+               product_id: document.getElementById('cart.add').getAttribute('product-id'),
+               qty: document.getElementById('number').value,
+                        
+            }),
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            location.reload();
+        })
+        .catch((error) => {
+            location.reload();
+        });
+        }   
+
+ function increaseValue() {
+  var value = parseInt(document.getElementById('number').value, 10);
+  value = isNaN(value) ? 0 : value;
+  value++;
+  document.getElementById('number').value = value;
+}
+
+function decreaseValue() {
+  var value = parseInt(document.getElementById('number').value, 10);
+  value = isNaN(value) ? 0 : value;
+  value < 1 ? value = 1 : '';
+  value--;
+  document.getElementById('number').value = value;
+}
+
+
+</script>
+{% endblock %} 

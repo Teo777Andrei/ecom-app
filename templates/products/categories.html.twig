@@ -1,0 +1,20 @@
+<div>
+    <h4 class="text-center">{{current ? current.name : 'Browse through categories'}}</h4>
+</div>
+            
+            
+<div class="card-body d-flex mt-5 overflow-auto text-nowrap categories-container">
+    {% for category in categories %}
+        <div class="category-box mx-3 cursor-pointer mt-3" 
+            id={{category.id}}
+        /> 
+            <div class="card h-100 hover-zoom" style="width: 18rem;">
+                <img src={{ asset("assets/media/categories/" ~ category.media)}}
+                class="card-img-top" alt={{category.media}}>
+                <div class="card-body">
+                    <p class="card-text text-wrap">{{category.name}}</p>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
