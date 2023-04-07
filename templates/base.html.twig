@@ -52,6 +52,26 @@
             {#  #}
         {% endblock %}
 
-      
+        <footer>
+            <div class="w-100 footer-content">
+                <div class="text-center">
+                    <div class="d-flex-inline mb-2">
+                        <a href = "https://facebook.com">
+                            <img src={{ asset("assets/media/misc/facebook.png")}} class='media-logo'>
+                        </a>
+                        <a href = "https://instagram.com">
+                           <img src={{ asset("assets/media/misc/instagram.png")}} class='media-logo'>
+                        </a>
+                        <a href = "https://twitter.com">
+                            <img src={{ asset("assets/media/misc/twitter.png")}} class='media-logo'>
+                        </a>
+                    </div>
+                    <p>&copy All rights reserved - <span id="footer-current-year"></span><p>
+                </div>
+            <div>
+        </footer>
     </body>
+    <script>
+        document.getElementById('footer-current-year').innerHTML = new Date().getFullYear();
+    </script>
 </html>

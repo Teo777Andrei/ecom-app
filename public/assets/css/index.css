@@ -2,6 +2,27 @@
     background-image: linear-gradient(90deg,#5f2c82,#49a09d) !important;
 }
 
+.logo {
+  width:  20rem;
+}
+
+.media-logo {
+  width: 3rem;
+  padding-inline: 0.5rem;
+  cursor: pointer;
+}
+
+.media-logo:hover {
+  transform: scale(1.2);
+}
+
+.footer-content {
+  background: rgba(0,0,0, 0.5);
+  position: fixed;
+  bottom: 0;
+  padding: 1rem 0;
+}
+
 nav {
   position: sticky !important;
   top: 0;
