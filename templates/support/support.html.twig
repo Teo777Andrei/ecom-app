@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %} Support {% endblock %}
+{% block head %}
+    
+{% endblock %}
+{% block body %}
+{% include "partials/navbar.html.twig" %}
+
+<div class="container mt-4">
+    <h5 class="text-center mb-4"> Support </h5>
+    {% for message in app.flashes('success') %}
+            <div class="alert alert-success text-center">
+                {{ message }}
+            </div>
+    {% endfor %}
+    {% for message in app.flashes('error') %}
+            <div class="alert alert-success text-center">
+                {{ message }}
+            </div>
+    {% endfor %}
+ 
+    {{ form_start(form) }}
+
+
+    <div class="row">
+        <div class="col-12 form-group">
+            {{ form_row(form.issue) }}
+        </div>
+        <div class="col-12 form-group">
+            {{ form_row(form.content) }}
+        </div>
+    </div>
+{{ form_end(form) }}
+</div>
+{% endblock %} 

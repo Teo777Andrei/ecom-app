@@ -5,7 +5,6 @@ namespace App\Service;
 use App\Entity\Category;
 use App\Entity\Product;
 use App\Traits\EntityTrait;
-use Doctrine\Common\Proxy\Proxy;
 use Symfony\Component\HttpFoundation\Request;
 
 class ProductsService 
@@ -72,5 +71,17 @@ class ProductsService
         ->getEntityManager()
         ->getRepository(Product::class)
         ->find($id);
+    }
+
+    /**
+     * @param string $searchTerm
+     * 
+     * @return array
+     */
+    public function getProductsByName(string $searchTerm): array
+    {
+        $productsRepository = $this->getEntityManager()->getRepository(Product::class);
+
+        return $productsRepository->getProductsByName($searchTerm);
     }
 }

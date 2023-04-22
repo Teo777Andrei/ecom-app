@@ -19,7 +19,7 @@ security:
                 target: user.login 
 
     access_control:
-        - {path: '^(?!/login)', roles: IS_AUTHENTICATED_FULLY }
+        - {path: '^(?!/login)', roles: IS_AUTHENTICATED_FULLY}
 
 when@test:
     security:

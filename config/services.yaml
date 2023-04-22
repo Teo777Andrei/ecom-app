@@ -1,4 +1,6 @@
 parameters:
+    mailer.data: 
+        dest: '%env(MAILER_DEST)%'
 
 services:
     _defaults:
@@ -10,4 +12,16 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
+            - '../src/Dto'
 
+    
+    App\Service\NotificationService:
+        arguments: 
+            $mailerData: '%mailer.data%'
+        
+
+    _instanceof:
+        Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface:
+            autowire: true
+            tags: ['doctrine.repository_service']
+    

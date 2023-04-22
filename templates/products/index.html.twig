@@ -10,6 +10,7 @@
 
 <div class="container mt-4">
     <div class="row d-flex align-items-center">
+        <input id='search' type='text'/>
         <div class="py-5 rounded-lg">
             {% if categories|length %}
                 {%  include 'products/categories.html.twig' %}
@@ -23,12 +24,32 @@
 </div>
 <script>
     document.querySelectorAll('div.category-box').forEach(element => {
-        console.log(element.id);
         element.addEventListener('click', () =>  handleClickCategory(element.id))
     });
     function handleClickCategory(id) {
     
         location.href = "/products-categories?id=" + id;
     }
+
+
+    document.getElementById('search').onchange =  async e => {
+        const data = {
+            search: e.target.value
+        }
+
+        var url = new URL('https://localhost:8000/products-filter')
+        var params = {
+            search: e.target.value
+        } 
+
+        url.search = new URLSearchParams(params).toString();
+
+        const response = await fetch(url, {
+            method: "GET", 
+            mode: "cors", 
+        });
+
+        console.log(await response.json());
+    };
 </script>
 {% endblock %}

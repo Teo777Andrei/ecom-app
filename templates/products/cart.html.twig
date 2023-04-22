@@ -50,7 +50,7 @@
 </div>
 <script>
     document.getElementById('clear').onclick = function(e) {
-        fetch("http://localhost:8000/cart-clear", {
+        fetch("https://localhost:8000/cart-clear", {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
@@ -61,7 +61,7 @@
     }
 
     document.getElementById('checkout').onclick = function(e) {
-        fetch("http://localhost:8000/checkout", {
+        fetch("https://localhost:8000/checkout", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

@@ -1,5 +1,7 @@
 <?php
 
+use Elastic\Elasticsearch\Response\Elasticsearch;
+
 return [
     Symfony\Bundle\FrameworkBundle\FrameworkBundle::class => ['all' => true],
     JMS\SerializerBundle\JMSSerializerBundle::class => ['all' => true],

@@ -3,9 +3,7 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\User;
 use Symfony\Component\HttpFoundation\Response;
 use App\Traits\AuthTrait;
 use Exception;

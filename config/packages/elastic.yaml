@@ -1,0 +1,24 @@
+services:
+  Elastic\Transport\NodePool\Resurrect\ElasticsearchResurrect: ~
+
+  Elastic\Transport\NodePool\Resurrect\ResurrectInterface: '@Elastic\Transport\NodePool\Resurrect\ElasticsearchResurrect'
+
+  Elastic\Transport\NodePool\Selector\RoundRobin: ~
+  
+  Elastic\Transport\NodePool\Selector\SelectorInterface: '@Elastic\Transport\NodePool\Selector\RoundRobin'
+
+  Elastic\Transport\NodePool\SimpleNodePool:
+    autoconfigure: true
+    autowire: true
+
+  Elastic\Transport\NodePool\NodePoolInterface: '@Elastic\Transport\NodePool\SimpleNodePool'
+
+  Elastic\Elasticsearch\Client:
+      autowire: true
+
+  Elastic\Elasticsearch\ClientPoolInterface: '@Elastic\Elasticsearch\Client'
+
+  Elastic\Transport\Transport:  
+    autoconfigure: true
+    autowire: true
+  
