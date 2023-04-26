@@ -84,4 +84,27 @@ class ProductsService
 
         return $productsRepository->getProductsByName($searchTerm);
     }
+
+    /**
+     * @param Request $request
+     * @return array
+     */
+    public function searchProducts(Request $request): array 
+    {
+        $products = [];
+        $productsRepository = $this->getEntityManager()->getRepository(Product::class);
+        if (+$request->get('product-id')) {
+            $products[] = $productsRepository->find($request->get('product-id'));
+            return $products;
+        }
+
+        $productDocs = $productsRepository->searchProductByTokens($request->get('term'));
+        $products = [];
+        foreach($productDocs as $productDoc) {
+            $products[] = $productsRepository->find($productDoc['_id']);
+        }
+        
+        return $products;
+    }
+    
 }

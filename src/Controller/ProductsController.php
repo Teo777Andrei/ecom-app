@@ -73,4 +73,25 @@ class ProductsController extends AbstractController
             return new Response($e->getMessage());
         }
     }
+
+    #[Route(path: '/products-search', name: 'products.search')]
+    public function searchProducts(Request $request): Response
+    {
+        try {
+            $products = $this->productsService->searchProducts($request);
+            return $this->render(
+                'products\index.html.twig',
+                [
+                    'categories' => [],
+                    'current' => null,
+                    'products' => $products
+                ]
+            );
+        } catch (Throwable $e) {
+            return new JsonResponse(
+                $e->getMessage() . ' ' . $e->getTraceAsString(),
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
+    } 
 }

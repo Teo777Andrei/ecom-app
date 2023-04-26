@@ -16,34 +16,56 @@ class ProductRepository extends ServiceEntityRepository
     {
         parent::__construct($managerRefistry, Product::class);
     }
-
-    /* public function getProductsByName(string $searchTerm): array
-    {
-        $qb = $this->createQueryBuilder('p')
-            ->where('p.name = :search')
-            ->setParameter('search', $searchTerm);
-
-        return $qb->getQuery()->getResult();
-    }
- */
  
     public function getProductsByName(string $searchTerm): array
     {
-        $query = [
-            'match' => [
-                'name' => $searchTerm
-            ]
-        ];
-
-        $searchParams = [
+        $params = [
             'index' => 'products',
             'body' => [
-                'query' => $query
+                'query' => [
+                    'prefix' => [
+                        'name' => $searchTerm
+                    ]
+                ]
             ]
         ];
 
-        $response = $this->elasticClient->search($searchParams);
+        $response = $this->elasticClient->search($params);
 
+        return $response['hits']['hits'];
+    }
+
+    /**
+     * @param string $searchTerm
+     * @return array
+     */
+    public function searchProductByTokens(string $searchTerm): array 
+    {
+        $tokens = explode(" ", $searchTerm);
+
+        $wildCards = [];
+        foreach($tokens as $token) {
+            $wildCards[] = [
+                'wildcard' => [
+                    'name' => [
+                        'value' => strtolower($token)
+                    ]
+                ]
+            ];
+        }
+
+        $params = [
+            'index' => 'products',
+            'body' => [
+                'query' => [
+                    'bool' => [
+                        'must' => $wildCards
+                    ]
+                ]
+            ]
+        ];
+
+        $response = $this->elasticClient->search($params);
         return $response['hits']['hits'];
     }
 

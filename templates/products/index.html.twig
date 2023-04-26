@@ -10,7 +10,17 @@
 
 <div class="container mt-4">
     <div class="row d-flex align-items-center">
-        <input id='search' type='text'/>
+        <div class="row">
+            <div class='col-10'>
+                <input type="text" id="input-field" placeholder="Search ...">
+                <ul id="suggestion-list"></ul>
+            </div>
+            
+            <div class='col-2'>
+                 <button id="search-btn"type="button" class="btn btn-success">Search</button>
+            </div>
+        </div>
+        
         <div class="py-5 rounded-lg">
             {% if categories|length %}
                 {%  include 'products/categories.html.twig' %}
@@ -31,12 +41,41 @@
         location.href = "/products-categories?id=" + id;
     }
 
+    const inputField = document.getElementById('input-field');
+    const suggestionsList = document.getElementById('suggestion-list');
+    const searchButton = document.getElementById('search-btn');
 
-    document.getElementById('search').onchange =  async e => {
-        const data = {
-            search: e.target.value
+    suggestionsList.setAttribute('item-id', 0);
+
+    function showSuggestions(suggestions) {
+        suggestionsList.innerHTML = '';
+
+        const userInput = inputField.value;
+
+        suggestions.forEach(suggestion => {
+            const li = document.createElement('li');
+            li.classList.add('suggestion');
+            li.textContent = suggestion._source.name;
+            li.onclick = function () {
+                inputField.value = li.textContent;
+                suggestionsList.setAttribute('item-id', suggestion._id);
+            }
+            suggestionsList.appendChild(li);
+        });
+    }
+
+    inputField.addEventListener('input', async function (event) {
+        let suggestions = []; 
+        suggestionsList.setAttribute('item-id', 0);
+        if (event.target.value) {
+            suggestions = await fetchSuggestions(event);
         }
 
+        showSuggestions(suggestions)
+    });
+
+
+    async function fetchSuggestions(e) {
         var url = new URL('https://localhost:8000/products-filter')
         var params = {
             search: e.target.value
@@ -49,7 +88,13 @@
             mode: "cors", 
         });
 
-        console.log(await response.json());
+        return await response.json();
     };
+
+    searchButton.onclick = function (e) {
+        location.href = "/products-search?" + "product-id=" + suggestionsList.getAttribute('item-id') +
+            '&term=' + inputField.value
+    }
+
 </script>
 {% endblock %}
