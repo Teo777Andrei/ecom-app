@@ -7,17 +7,29 @@
 {% endblock %}
 {% block body %}
 {% include "partials/navbar.html.twig" %}
+{% include "partials/footer.html.twig" %}
+
 
 <div class="container mt-4">
     <div class="row d-flex align-items-center">
         <div class="row">
             <div class='col-10'>
-                <input type="text" id="input-field" placeholder="Search ...">
+                <input type="text" id="input-field" placeholder="Find by name ...">
                 <ul id="suggestion-list"></ul>
             </div>
             
             <div class='col-2'>
                  <button id="search-btn"type="button" class="btn btn-success">Search</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class='col-10'>
+                <input type="text" id="input-specs" placeholder="Filter through specs ...">
+            </div>
+            
+            <div class='col-2'>
+                 <button id="specs-filter-btn"type="button" class="btn btn-info">Filter specs</button>
             </div>
         </div>
         
@@ -42,8 +54,11 @@
     }
 
     const inputField = document.getElementById('input-field');
+    const inputSpecs = document.getElementById('input-specs');
+
     const suggestionsList = document.getElementById('suggestion-list');
     const searchButton = document.getElementById('search-btn');
+    const searchSpecsButton = document.getElementById('specs-filter-btn');
 
     suggestionsList.setAttribute('item-id', 0);
 
@@ -90,6 +105,12 @@
 
         return await response.json();
     };
+
+    searchSpecsButton.onclick = function (e) {
+        const url = "/products-specs?" + 'term=' + inputSpecs.value
+
+        window.open(url, '_blank');
+    }
 
     searchButton.onclick = function (e) {
         location.href = "/products-search?" + "product-id=" + suggestionsList.getAttribute('item-id') +

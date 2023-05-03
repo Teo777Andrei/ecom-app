@@ -106,5 +106,26 @@ class ProductsService
         
         return $products;
     }
-    
+
+    /**
+     * @param Request $request
+     * @return array
+     */
+    public function filterBySpecs(Request $request): array 
+    {
+        $products = [];
+        $productsRepository = $this->getEntityManager()->getRepository(Product::class);
+
+        $productDocs = $productsRepository->getProductsBySpecs($request->get('term'));
+        $products = [];
+        foreach($productDocs as $productDoc) {
+            $products[] = $productsRepository->find($productDoc['_id']);
+        }
+
+        if (is_numeric($request->get('desc')) && +$request->get('desc')) {
+            return array_reverse($products);
+        }
+        
+        return $products;
+    }    
 }

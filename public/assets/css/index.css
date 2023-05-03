@@ -21,6 +21,7 @@
   position: fixed;
   bottom: 0;
   padding: 1rem 0;
+  z-index: 1000;
 }
 
 nav {
@@ -47,6 +48,12 @@ nav {
    cursor: pointer;
    height: 30rem;
    transition: transform .3s; /* Animation */
+}
+
+.product-box.h-0 {
+  cursor: pointer;
+  height: unset ;
+  transition: transform .3s; /* Animation */
 }
 
 .product-box:hover {
@@ -146,7 +153,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 
-#input-field {
+#input-field, #input-specs {
   width: 100%;
   padding: 10px;
   font-size: 16px;
@@ -185,4 +192,11 @@ input[type=number]::-webkit-outer-spin-button {
   cursor: pointer;
   padding: 4px 8px;
   color: #000;
+}
+
+#sort-specs-btn {
+  position: fixed;
+  right: 5%;
+  top: 5%;
+  z-index: 9999;
 }

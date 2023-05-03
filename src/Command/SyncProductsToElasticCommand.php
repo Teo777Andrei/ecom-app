@@ -29,9 +29,7 @@ class SyncProductsToElasticCommand extends Command
         try {
             $client = $this->elasticService->getClient();
         
-           
             $products = $this->entityManager->getRepository(Product::class)->findAll();
-
 
             $params = [
                 'index' => 'products',
@@ -45,6 +43,7 @@ class SyncProductsToElasticCommand extends Command
                 $params['body'][] = [
                     'id' => $product->getId(),
                     'name' => $product->getName(),
+                    'specs' => $product->getSpecs()
                 ];
             }
 

@@ -2,15 +2,32 @@
 
 namespace App\Service;
 
+use App\Entity\SearchLog;
+use App\Traits\EntityTrait;
 use Elastic\Elasticsearch\Client;
 
 class ElasticService 
 {
+
+    use EntityTrait;
+
     private array $hosts = [];
      
     public function __construct(private Client $client)
     {
         $this->addHost('http://localhost:9200');
+    }
+
+    /**
+     * @param string $type
+     * @return array
+     */
+    public function getLogs(string $type): array
+    {
+        $searchLogRepository = $this->getEntityManager()->getRepository(SearchLog::class);
+        return $searchLogRepository->findBy([
+            'type' => $type
+        ]); 
     }
     
     /**

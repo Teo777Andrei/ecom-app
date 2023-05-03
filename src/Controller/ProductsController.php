@@ -94,4 +94,27 @@ class ProductsController extends AbstractController
             );
         }
     } 
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    #[Route(path: '/products-specs', name: 'products.specs')]
+    public function filterBySpecs(Request $request):  Response
+    {
+        try {
+            $products = $this->productsService->filterBySpecs($request);
+            return $this->render(
+                'products\index-specs.html.twig',
+                [
+                    'products' => $products
+                ]
+            );
+        } catch (Throwable $e) {
+            return new JsonResponse(
+                $e->getMessage() . ' ' . $e->getTraceAsString(),
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }  
+    }
 }

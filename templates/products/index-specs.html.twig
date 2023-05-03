@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %} Products {% endblock %}
+{% block head %}
+    
+{% endblock %}
+{% block body %}
+
+<div>
+    <h4 class="text-center">{{current.name }}</h4>
+</div>
+
+<div class="container mt-4 pb-5">
+    <button id="sort-specs-btn" type="button" class="btn btn-primary">
+        SORT DESC
+    </button>
+    {% for product in products %}
+        <div class="product-box h-0 mx-3 cursor-pointer my-5" 
+            id={{product.id}}
+        /> 
+            <div class = "row">
+                <div class="col-6 card h-100  p-0" style="width: 18rem;">
+                    <img src={{ asset("assets/media/products/" ~ product.media)}}
+                    class="card-img-top" alt={{product.media}}>
+                    <div class="card-body">
+                        <p class="card-text text-wrap">{{product.name}}</p>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <p>{{product.specs}}</p>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+<script>
+
+   const url = new URL(location.href);
+   const isDesc = !!+url.searchParams.get('desc');
+   console.log(url.searchParams.get('desc'));
+
+   document.querySelectorAll('div.product-box').forEach(element => {
+        element.addEventListener('click', () =>  handleClickProduct(element.id))
+    });
+
+    function handleClickProduct(id) {
+        location.href = "/products/" + id;
+    }
+
+    const sortSpecsBtn = document.getElementById('sort-specs-btn');
+    
+    sortSpecsBtn.innerHTML = "SORT DESC";
+    if (isDesc) {
+        sortSpecsBtn.innerHTML = "SORT ASC";
+    }
+
+    sortSpecsBtn.onclick = function () {
+        url.searchParams.set('desc', +!isDesc); 
+        console.log(url.search);
+        location.href = url.href;
+    }
+
+</script>
+{% endblock %}

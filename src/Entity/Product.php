@@ -21,6 +21,9 @@ class Product
     #[ORM\Column(length: 65534, unique: true)]
     private string $description;
 
+    #[ORM\Column(length: 65534, unique: false)]
+    private string $specs;
+
     #[ORM\Column(length: 50, unique: true)]
     private string $media;
 
@@ -248,6 +251,30 @@ class Product
     public function setCartProducts($cartProducts)
     {
         $this->cartProducts = $cartProducts;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of specs
+     *
+     * @return string
+     */
+    public function getSpecs(): string
+    {
+        return $this->specs;
+    }
+
+    /**
+     * Set the value of specs
+     *
+     * @param string $specs
+     *
+     * @return self
+     */
+    public function setSpecs(string $specs): self
+    {
+        $this->specs = $specs;
 
         return $this;
     }
